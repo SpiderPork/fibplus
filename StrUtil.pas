@@ -100,7 +100,9 @@ function SQLMaskCompareAA(const aString,Mask : AnsiString ) : boolean;
 {$IFDEF D6+}
 function SQLMaskCompare(const aString,Mask : Widestring ) : boolean; overload;
 {$ENDIF}
-//function WldIndexOf(ts:TStrings;const Value:AnsiString;CaseSensitive:boolean):integer;
+{$IFDEF USE_DEPRECATE_METHODS2}
+function WldIndexOf(ts:TStrings;const Value:AnsiString;CaseSensitive:boolean):integer;
+{$ENDIF}
 
 //from Me
 
@@ -290,6 +292,22 @@ type
   IntegerArray  = array[0..$effffff] of Integer;
   PIntegerArray = ^IntegerArray;
 {$ENDIF}
+
+{$IFDEF USE_DEPRECATE_METHODS2}
+function WldIndexOf(ts:TStrings;const Value:string;CaseSensitive:boolean):integer;
+var i:integer;
+begin
+ Result:=-1;
+ for i:=0 to Pred(ts.Count) do
+  if WildStringCompare( iifStr(CaseSensitive, ts[i],AnsiUpperCase(ts[i])),
+   iifStr(CaseSensitive, Value,AnsiUpperCase(Value))
+  ) then
+  begin
+   Result:=i; Exit
+  end;
+end;
+{$ENDIF}
+
 
 function IsNumericStr(const Str:string):boolean;
 var

@@ -132,6 +132,9 @@ uses
 {$IFDEF D_XE3}
   System.Types, // for inline funcs
 {$ENDIF}
+{$IFDEF USE_DEPRECATE_METHODS2}
+  pFIBDataSet,
+{$ENDIF}
  StrUtil,FIBConsts;
 
 threadvar
